@@ -1,25 +1,33 @@
 name: publish
 
-# Publish to npm when a GitHub release is published.
-# Needs an npm automation token in the repo secret NPM_TOKEN.
+# Publishes to npm when a GitHub release is published, using npm trusted
+# publishing (OIDC). No npm token is stored anywhere.
+#
+# npm side (package settings → Trusted publishing → GitHub Actions):
+#   user: Abdulmumin1, repository: minicode, workflow: publish.yml, environment: npm
+#
+# If "Allow npm publish" isn't ticked there, set the repo variable
+# NPM_STAGE=true and releases are staged for approval on npmjs.com instead.
 on:
   release:
     types: [published]
 
 permissions:
   contents: read
-  id-token: write # for npm provenance
+  id-token: write # lets npm verify this workflow (OIDC) and sign provenance
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment: npm
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           registry-url: https://registry.npmjs.org
-          cache: npm
+      # Trusted publishing needs npm 11.5.1+, staging needs 11.15+.
+      - run: npm install -g npm@11
       - run: npm ci --ignore-scripts
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
@@ -29,6 +37,9 @@ jobs:
           tag="${GITHUB_REF_NAME#v}"
           version="$(node -p "require('./package.json').version")"
           test "$tag" = "$version" || { echo "Tag $GITHUB_REF_NAME does not match version $version"; exit 1; }
-      - run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish
+        if: vars.NPM_STAGE != 'true'
+        run: npm publish --access public
+      - name: Stage for approval on npmjs.com
+        if: vars.NPM_STAGE == 'true'
+        run: npm stage publish --access public
