@@ -1,5 +1,5 @@
 {
-  "name": "minicode",
+  "name": "minicode-runtime",
   "version": "0.1.0",
   "description": "A small code mode runtime: an interpreter for a safe subset of JavaScript, where the only way out is a tool call.",
   "keywords": [

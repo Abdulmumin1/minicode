@@ -12,7 +12,7 @@ My goal with minicode is a runtime you can read end to end, and a set of experim
 
 minicode exists to make that understandable. I built it alongside a close reading of OpenCode's interpreter and Rivet's secure-exec, and I'm releasing it open-source so others can run the experiments, break it, and build on it. It isn't meant for production. It has had no security review beyond mine, and the notes include two escapes I found in it myself.
 
-Today I'm releasing the first version: the runtime, a playground, eight example programs, 106 tests and a benchmark suite. It needs Node 22. Add it to a project with `npm install minicode`, or clone the repo and run `npm start` for the playground or `npm test` for the tests. You can read the story in [the post](https://yaqeen.me/blog/i-built-a-code-mode-sandbox), or the detailed evidence in [the findings](FINDINGS.md).
+Today I'm releasing the first version: the runtime, a playground, eight example programs, 106 tests and a benchmark suite. It needs Node 22. Add it to a project with `npm install minicode-runtime`, or clone the repo and run `npm start` for the playground or `npm test` for the tests. You can read the story in [the post](https://yaqeen.me/blog/i-built-a-code-mode-sandbox), or the detailed evidence in [the findings](FINDINGS.md).
 
 ![The minicode playground](https://yaqeen.me/blog/i-built-a-code-mode-sandbox/playground-parallel.png)
 
@@ -47,11 +47,11 @@ Yaqeen
 ## Using it
 
 ```bash
-npm install minicode
+npm install minicode-runtime
 ```
 
 ```js
-import { createRuntime } from "minicode";
+import { createRuntime } from "minicode-runtime";
 
 const runtime = createRuntime({
   tools: {
