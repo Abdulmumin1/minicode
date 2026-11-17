@@ -1,0 +1,9 @@
+flowchart LR
+    G["({}).constructor"] --> L["getProp looks in<br/>methods.object"]
+    L -->|"before: a plain object"| O["Object.prototype<br/>.constructor"]
+    O --> X["The host's Object<br/>inside the guest"]
+    L -->|"after: Object.create(null)"| U["undefined"]
+
+    class G muted
+    class X danger
+    class U active

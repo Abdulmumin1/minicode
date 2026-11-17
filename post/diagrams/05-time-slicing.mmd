@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant G as Guest program
+    participant I as Interpreter
+    participant D as Driver
+    participant H as Host event loop
+
+    G->>I: while (true) n++
+    loop every 10,000 steps
+        I->>D: yield TICK
+        D->>D: deadline? heap? aborted?
+        alt 1 ms has passed
+            D->>H: await setImmediate
+            H-->>D: requests served, timers fired
+        end
+        D->>I: refuel, carry on
+    end
+    D-->>G: TimeoutExceeded

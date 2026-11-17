@@ -1,0 +1,16 @@
+flowchart TB
+    H1(["Tool calling"])
+    H1 ~~~ M1
+    M1["Model"] -->|"users.find"| T1["Tool"]
+    T1 -->|"6 ids"| M2["Model"]
+    M2 -->|"users.get × 6"| T2["Tool"]
+    T2 -->|"6 profiles"| M3["Model"]
+
+    H2(["Code mode"])
+    H2 ~~~ N1
+    N1["Model"] -->|"writes a program"| S["Sandbox<br/>find, then get × 6<br/>in parallel"]
+    S -->|"three names"| N2["Model"]
+
+    class H1,H2 control
+    class T1,T2 muted
+    class S active

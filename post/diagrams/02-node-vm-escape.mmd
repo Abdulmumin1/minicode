@@ -1,0 +1,8 @@
+flowchart LR
+    G["Guest code<br/>in a vm context"] -->|"globalThis.constructor"| O["Object<br/>from the host"]
+    O -->|".constructor"| F["Function<br/>from the host"]
+    F -->|"('return process')()"| P["process<br/>env, fs, everything"]
+
+    class G active
+    class O,F muted
+    class P danger

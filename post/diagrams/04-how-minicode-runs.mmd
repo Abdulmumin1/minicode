@@ -1,0 +1,13 @@
+flowchart TB
+    M["Model writes a program"] --> P["Parse with acorn<br/>refuse what isn't allowed"]
+    P --> I["Interpreter<br/>generators all the way down"]
+    I -->|"yield TICK"| D["Driver<br/>clock, heap, 1 ms turns"]
+    I -->|"tools.x(input)"| D
+    D -->|"JSON copy in"| T["Your tool"]
+    T -->|"JSON copy out"| D
+    D -->|"settle the promise"| I
+    I -->|"return value"| R["Back to the model"]
+
+    class M,R muted
+    class I active
+    class D control

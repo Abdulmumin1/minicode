@@ -1,0 +1,20 @@
+flowchart TB
+    A(["node:vm"])
+    A ~~~ A1
+    A1["Guest code<br/>real V8, same heap"] --> A2["A vm context<br/>has to hold"]
+    A2 --> A3["Your process"]
+
+    B(["Own interpreter"])
+    B ~~~ B1
+    B1["Guest code<br/>is data it walks"] --> B2["Every built-in<br/>has to be right"]
+    B2 --> B3["Your process"]
+
+    C(["Isolate + sidecar"])
+    C ~~~ C1
+    C1["Guest code<br/>real V8, own heap"] --> C2["Isolate, kernel,<br/>and a process wall"]
+    C2 --> C3["Your process"]
+
+    class A,B,C control
+    class A2 danger
+    class B2,C2 active
+    class A3,B3,C3 muted

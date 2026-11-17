@@ -1,0 +1,58 @@
+{
+  "name": "minicode",
+  "version": "0.1.0",
+  "description": "A small code mode runtime: an interpreter for a safe subset of JavaScript, where the only way out is a tool call.",
+  "keywords": [
+    "code-mode",
+    "codemode",
+    "sandbox",
+    "interpreter",
+    "javascript",
+    "ai",
+    "agents",
+    "llm",
+    "tools",
+    "mcp"
+  ],
+  "homepage": "https://yaqeen.me/blog/i-built-a-code-mode-sandbox",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abdulmumin1/minicode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Abdulmumin1/minicode/issues"
+  },
+  "license": "MIT",
+  "author": "Abdulmumin Yaqeen <abdulmuminyqn@gmail.com> (https://yaqeen.me)",
+  "type": "module",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "default": "./src/index.js"
+    }
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test --test-reporter=dot test/*.test.js",
+    "start": "node playground/server.js",
+    "bench": "node bench/native.js && node bench/minicode.js && node bench/v1-node-vm.js",
+    "capture": "node scripts/capture.js && node style/render-mermaid.js && node style/render-chart.js",
+    "prepublishOnly": "npm test"
+  },
+  "dependencies": {
+    "acorn": "8.15.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.65.1"
+  }
+}

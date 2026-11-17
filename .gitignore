@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+
+# The post and its assets live on yaqeen.me, not in this repo.
+# Only the diagram sources are kept.
+post/*
+!post/diagrams/
+
+# Local tooling for rendering the post's images (fonts and vendored libs).
+style/fonts/
+style/vendor/

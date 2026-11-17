@@ -1,0 +1,1 @@
+{"startup (1 + 1)":{"ms":0.4,"value":2},"loop 1M":{"ms":142.4,"value":499999500000},"fib(20) recursion":{"ms":10.5,"value":6765},"array pipeline 100k":{"ms":56.2,"value":3333366666},"string building 20k":{"ms":15.1,"value":20000},"JSON 5k objects":{"ms":9.2,"value":5000},"object churn 50k":{"ms":18.8,"value":1000}}
